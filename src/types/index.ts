@@ -39,6 +39,7 @@ export interface Goal {
   completedAt?: string;
   progress: number;
   status: "not_started" | "in_progress" | "completed";
+  priority: "low" | "medium" | "high";
   subTasks: SubTask[];
 }
 

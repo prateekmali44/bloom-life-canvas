@@ -1,11 +1,6 @@
+
 import React, { useState } from "react";
-import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { GraphicalKpiCard } from "@/components/dashboard/GraphicalKpiCard";
-import { RecentGoals } from "@/components/dashboard/RecentGoals";
-import { HabitTracker } from "@/components/dashboard/HabitTracker";
-import { RecentJournal } from "@/components/dashboard/RecentJournal";
-import { EmotionTracker } from "@/components/dashboard/EmotionTracker";
-import { LifeAreaKey } from "@/types";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { mockKpiData, mockGoals, mockHabits, mockJournalEntries } from "@/services/mockData";
 
 const Dashboard = () => {
@@ -27,32 +22,16 @@ const Dashboard = () => {
   const recentEntries = mockJournalEntries.slice(0, 3);
 
   return (
-    <div className="container mx-auto animate-fade-in">
-      <DashboardHeader
-        selectedTimeframe={selectedTimeframe}
-        setSelectedTimeframe={setSelectedTimeframe}
-        selectedAreas={selectedAreas}
-        setSelectedAreas={setSelectedAreas}
-      />
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        {filteredKpis.map((kpi) => (
-          <GraphicalKpiCard key={kpi.areaKey} data={kpi} />
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <RecentGoals goals={priorityGoals} />
-          <HabitTracker habits={todaysHabits} />
-        </div>
-        
-        <div className="space-y-6">
-          <EmotionTracker />
-          <RecentJournal entries={recentEntries} />
-        </div>
-      </div>
-    </div>
+    <DashboardLayout
+      selectedTimeframe={selectedTimeframe}
+      setSelectedTimeframe={setSelectedTimeframe}
+      selectedAreas={selectedAreas}
+      setSelectedAreas={setSelectedAreas}
+      filteredKpis={filteredKpis}
+      priorityGoals={priorityGoals}
+      todaysHabits={todaysHabits}
+      recentEntries={recentEntries}
+    />
   );
 };
 
