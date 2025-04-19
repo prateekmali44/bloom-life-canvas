@@ -7,31 +7,31 @@
 
 @layer base {
   :root {
-    --background: 330 100% 95%; // Soft Hazel Pink background
-    --foreground: 270 50% 30%; // Deep Purple text
+    --background: 330 100% 95%; /* Soft Hazel Pink background */
+    --foreground: 270 50% 30%; /* Deep Purple text */
 
-    --card: 330 100% 97%; // Light Hazel Pink card
+    --card: 330 100% 97%; /* Light Hazel Pink card */
     --card-foreground: 270 50% 30%;
 
-    --popover: 270 50% 85%; // Lavender popover
+    --popover: 270 50% 85%; /* Lavender popover */
     --popover-foreground: 330 100% 40%;
 
-    --primary: 270 50% 60%; // Purple primary
+    --primary: 270 50% 60%; /* Purple primary */
     --primary-foreground: 330 100% 98%;
 
-    --secondary: 330 100% 90%; // Soft Hazel Pink secondary
+    --secondary: 330 100% 90%; /* Soft Hazel Pink secondary */
     --secondary-foreground: 270 50% 30%;
 
-    --muted: 270 50% 90%; // Lavender muted
+    --muted: 270 50% 90%; /* Lavender muted */
     --muted-foreground: 270 50% 40%;
 
-    --accent: 330 100% 85%; // Hazel Pink accent
+    --accent: 330 100% 85%; /* Hazel Pink accent */
     --accent-foreground: 270 50% 30%;
 
-    --destructive: 0 84% 60%; // Keep standard destructive color
+    --destructive: 0 84% 60%; /* Keep standard destructive color */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 270 50% 80%; // Lavender border
+    --border: 270 50% 80%; /* Lavender border */
     --input: 270 50% 85%;
     --ring: 270 50% 60%;
 
@@ -39,25 +39,25 @@
   }
 
   .dark {
-    --background: 270 50% 15%; // Dark Purple background
-    --foreground: 330 100% 95%; // Soft Hazel Pink text
+    --background: 270 50% 15%; /* Dark Purple background */
+    --foreground: 330 100% 95%; /* Soft Hazel Pink text */
 
-    --card: 270 50% 20%; // Dark Purple card
+    --card: 270 50% 20%; /* Dark Purple card */
     --card-foreground: 330 100% 90%;
 
-    --popover: 270 50% 25%; // Darker Purple popover
+    --popover: 270 50% 25%; /* Darker Purple popover */
     --popover-foreground: 330 100% 85%;
 
-    --primary: 330 100% 75%; // Hazel Pink primary
+    --primary: 330 100% 75%; /* Hazel Pink primary */
     --primary-foreground: 270 50% 10%;
 
-    --secondary: 270 50% 30%; // Deep Purple secondary
+    --secondary: 270 50% 30%; /* Deep Purple secondary */
     --secondary-foreground: 330 100% 95%;
 
-    --muted: 270 50% 25%; // Dark Lavender muted
+    --muted: 270 50% 25%; /* Dark Lavender muted */
     --muted-foreground: 330 100% 80%;
 
-    --accent: 270 50% 35%; // Dark Purple accent
+    --accent: 270 50% 35%; /* Dark Purple accent */
     --accent-foreground: 330 100% 90%;
 
     --border: 270 50% 30%;
