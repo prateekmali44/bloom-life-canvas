@@ -2,7 +2,10 @@
 import React from "react";
 import { DashboardHeader } from "./DashboardHeader";
 import { KpiSection } from "./KpiSection";
-import { DashboardSidebar } from "./DashboardSidebar";
+import { RecentGoals } from "./RecentGoals";
+import { HabitTracker } from "./HabitTracker";
+import { EmotionTracker } from "./EmotionTracker";
+import { RecentJournal } from "./RecentJournal";
 
 interface DashboardLayoutProps {
   selectedTimeframe: string;

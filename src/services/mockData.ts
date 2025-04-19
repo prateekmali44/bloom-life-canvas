@@ -125,6 +125,7 @@ export const mockGoals: Goal[] = [
     deadline: "2025-06-30T23:59:59Z",
     progress: 45,
     status: "in_progress",
+    priority: "high",
     subTasks: [
       { id: "st1", goalId: "g1", title: "Register for the exam", completed: true },
       { id: "st2", goalId: "g1", title: "Complete online course", completed: false },
@@ -140,6 +141,7 @@ export const mockGoals: Goal[] = [
     deadline: "2025-09-15T08:00:00Z",
     progress: 30,
     status: "in_progress",
+    priority: "high",
     subTasks: [
       { id: "st4", goalId: "g2", title: "Build up to 5K", completed: true },
       { id: "st5", goalId: "g2", title: "Build up to 10K", completed: false },
@@ -155,6 +157,7 @@ export const mockGoals: Goal[] = [
     deadline: "2025-12-31T23:59:59Z",
     progress: 60,
     status: "in_progress",
+    priority: "high",
     subTasks: [
       { id: "st7", goalId: "g3", title: "Set up automatic transfers", completed: true },
       { id: "st8", goalId: "g3", title: "Reach $5,000", completed: true },
@@ -170,6 +173,7 @@ export const mockGoals: Goal[] = [
     deadline: "2025-10-01T23:59:59Z",
     progress: 20,
     status: "in_progress",
+    priority: "medium",
     subTasks: [
       { id: "st10", goalId: "g4", title: "Learn 500 most common words", completed: true },
       { id: "st11", goalId: "g4", title: "Complete beginner grammar", completed: false },
@@ -185,6 +189,7 @@ export const mockGoals: Goal[] = [
     deadline: null,
     progress: 40,
     status: "in_progress",
+    priority: "medium",
     subTasks: [
       { id: "st13", goalId: "g5", title: "Find guided meditations", completed: true },
       { id: "st14", goalId: "g5", title: "Set up meditation space", completed: true },
