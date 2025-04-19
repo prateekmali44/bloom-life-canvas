@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,6 +65,19 @@ export default {
           700: "#FF4D60",
           800: "#FF3345",
           900: "#FF172A"
+        },
+        lavender: {
+          DEFAULT: "#D6BCFA",  // Light Lavender
+          50: "#F5E6FF",
+          100: "#E6CCFF",
+          200: "#D6BCFA",
+          300: "#C69EF5",
+          400: "#B780F0",
+          500: "#A862EB",
+          600: "#9B47E5",
+          700: "#8D2BDE",
+          800: "#7F10D7",
+          900: "#6A00C0"
         },
         background: {
           DEFAULT: "#FFDEE2",  // Soft Hazel Pink as default background
