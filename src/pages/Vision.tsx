@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { mockVisionItems, lifeAreas } from "@/services/mockData";
 import { LifeAreaKey, VisionItem as BaseVisionItem } from "@/types";
@@ -769,4 +770,196 @@ const VisionPage = () => {
                     <Card key={pillar.id} className="hover:shadow-md transition-shadow">
                       <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
                         <div>
-                          <CardTitle className="text-lg">{pillar.
+                          <CardTitle className="text-lg">{pillar.name}</CardTitle>
+                        </div>
+                        <div 
+                          className="w-8 h-8 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: `${pillar.color}20`, color: pillar.color }}
+                        >
+                          <pillar.icon className="h-4 w-4" />
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <Button variant="outline" size="sm" className="w-full mt-2">
+                          Define Goals
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h2 className="text-xl font-bold mb-4">Lifetime Vision Items</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredVisionItems.map((item) => {
+                    const area = item.areaKey ? lifeAreas[item.areaKey as LifeAreaKey] : null;
+                    
+                    return (
+                      <div 
+                        key={item.id} 
+                        className="group bg-white border border-border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                      >
+                        <div className="relative h-48 overflow-hidden">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          {area && (
+                            <Badge
+                              style={{ backgroundColor: area.color }}
+                              className="absolute top-3 right-3 text-white"
+                            >
+                              {area.name}
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-medium text-lg text-gray-900 mb-1">{item.title}</h3>
+                          <p className="text-muted-foreground text-sm mb-3">{item.description}</p>
+                          
+                          {item.why && (
+                            <div className="bg-hazel-50 border border-hazel-100 rounded-md p-3 mb-3">
+                              <p className="text-sm font-medium mb-1">My Why:</p>
+                              <p className="text-sm italic text-muted-foreground">{item.why}</p>
+                            </div>
+                          )}
+                          
+                          {item.values && (
+                            <div className="flex flex-wrap gap-1 mb-3">
+                              {item.values.map(value => (
+                                <Badge key={value} variant="outline" className="text-xs">
+                                  {value}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                          
+                          <Button variant="ghost" size="sm" className="w-full">
+                            Add to Annual Vision
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="border-2 border-dashed border-border rounded-xl flex items-center justify-center p-8 hover:bg-muted/50 transition-colors cursor-pointer h-64">
+                        <div className="text-center">
+                          <div className="w-16 h-16 rounded-full bg-lavender-100 flex items-center justify-center mx-auto mb-4">
+                            <PlusCircle className="h-8 w-8 text-primary" />
+                          </div>
+                          <h3 className="font-medium text-lg text-primary mb-1">Add Lifetime Vision</h3>
+                          <p className="text-muted-foreground text-sm">
+                            Create a new vision for your lifetime journey
+                          </p>
+                        </div>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[525px]">
+                      {/* Add Vision Item Dialog - content is same as the one above */}
+                      <DialogHeader>
+                        <DialogTitle>Add New Lifetime Vision</DialogTitle>
+                        <DialogDescription>
+                          Create a new lifetime vision item with clear intent and purpose.
+                        </DialogDescription>
+                      </DialogHeader>
+                      {/* ...form fields would go here... */}
+                      <DialogFooter>
+                        <Button type="submit" onClick={() => handleAddVisionItem({})}>
+                          Add to Vision Board
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+            </div>
+          )}
+        </TabsContent>
+        
+        <TabsContent value="mission" className="mt-0">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Personal Mission Statement</CardTitle>
+                <CardDescription>Define your core purpose and principles</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-lavender-50 border border-lavender-100 rounded-xl p-6 text-center">
+                  <h3 className="text-2xl font-bold text-primary italic mb-4">
+                    "I exist to create meaningful connections, grow continuously, and leave a positive impact on every life I touch."
+                  </h3>
+                  <Button variant="outline" size="sm">Edit Mission Statement</Button>
+                </div>
+                
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Core Values</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {["Authenticity", "Growth", "Compassion", "Excellence", "Courage", "Creativity", "Balance"].map(value => (
+                      <Badge key={value} className="px-3 py-1 bg-primary/10 text-primary hover:bg-primary/20">
+                        {value}
+                      </Badge>
+                    ))}
+                    <Badge variant="outline" className="px-3 py-1 border-dashed cursor-pointer">
+                      <PlusCircle className="h-3 w-3 mr-1" /> Add Value
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Life Vision</CardTitle>
+                <CardDescription>Your ideal future in 10-15 years</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Textarea 
+                  placeholder="Describe the life you envision for yourself in the next 10-15 years..."
+                  className="min-h-[200px] mb-4"
+                  defaultValue="I see myself living in a comfortable home near nature, having achieved financial independence through my creative work. I've published several successful books and built a community of like-minded individuals. My relationships are deep and meaningful, and I'm physically and mentally at my best. I travel regularly to experience new cultures and contribute positively to causes I believe in."
+                />
+                <Button>Save Vision</Button>
+              </CardContent>
+            </Card>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Impact Statement</CardTitle>
+                  <CardDescription>How you want to affect the world</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Textarea 
+                    placeholder="How do you want to impact the world around you?"
+                    className="min-h-[150px]"
+                    defaultValue="Through my work and being, I aim to inspire others to live more authentically and pursue their unique path. I want to create content and tools that help people overcome their limitations and find meaning in their daily lives."
+                  />
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Legacy Statement</CardTitle>
+                  <CardDescription>What you want to be remembered for</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Textarea 
+                    placeholder="What do you want to be remembered for?"
+                    className="min-h-[150px]"
+                    defaultValue="I want to be remembered as someone who lived with integrity, courage, and compassion. A person who wasn't afraid to be vulnerable, who created meaningful work, and who made others feel valued and understood in their presence."
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+export default VisionPage;
