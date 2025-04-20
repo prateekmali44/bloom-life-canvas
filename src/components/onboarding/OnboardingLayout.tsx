@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -12,6 +11,7 @@ import { OnboardingHabits } from "./OnboardingHabits";
 import { OnboardingNotifications } from "./OnboardingNotifications";
 import { OnboardingComplete } from "./OnboardingComplete";
 import { useToast } from "@/components/ui/use-toast";
+import { defaultModulesData, ModulesData } from "@/types/modules";
 
 export interface OnboardingData {
   // Profile
@@ -58,6 +58,9 @@ export interface OnboardingData {
   // Notifications
   notificationTime: string;
   weeklyReview: string;
+  
+  // Enabled Modules
+  enabledModules: ModulesData;
 }
 
 export const OnboardingLayout = () => {
@@ -108,6 +111,11 @@ export const OnboardingLayout = () => {
     // Default notification time (evening)
     notificationTime: "18:00",
     weeklyReview: "sunday",
+    
+    // Default modules (only professional enabled by default)
+    enabledModules: {
+      professional: { enabled: true, onboarded: false }
+    },
   });
   
   const steps = [

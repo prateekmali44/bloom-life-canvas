@@ -16,6 +16,8 @@ import {
   Settings, 
   UserCircle 
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { LifeModule } from "@/types/modules";
 
 interface SidebarLinkProps {
   to: string;
@@ -44,6 +46,42 @@ const SidebarLink = ({ to, icon: Icon, label }: SidebarLinkProps) => {
 };
 
 export const Sidebar = () => {
+  const [enabledModules, setEnabledModules] = useState<Record<LifeModule, boolean>>({
+    professional: true,
+    health: false,
+    financial: false,
+    educational: false,
+    spiritual: false,
+    personal: false
+  });
+
+  useEffect(() => {
+    // Load user data to check enabled modules
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      if (parsedData.enabledModules) {
+        const modules: Record<LifeModule, boolean> = {
+          professional: false,
+          health: false,
+          financial: false,
+          educational: false,
+          spiritual: false,
+          personal: false
+        };
+        
+        // Update modules based on user settings
+        Object.entries(parsedData.enabledModules).forEach(([key, value]) => {
+          if (key in modules && (value as any).enabled) {
+            modules[key as LifeModule] = true;
+          }
+        });
+        
+        setEnabledModules(modules);
+      }
+    }
+  }, []);
+
   return (
     <div className="hidden md:flex bg-white border-r border-border h-screen w-64 flex-col overflow-y-auto custom-scrollbar">
       <div className="px-6 py-5 border-b border-border flex items-center gap-2">
@@ -65,12 +103,24 @@ export const Sidebar = () => {
           <p className="px-3 text-xs font-medium text-gray-500 uppercase">Life Areas</p>
         </div>
         
-        <SidebarLink to="/professional" icon={Briefcase} label="Professional" />
-        <SidebarLink to="/health" icon={Heart} label="Health & Fitness" />
-        <SidebarLink to="/financial" icon={DollarSign} label="Financial" />
-        <SidebarLink to="/educational" icon={GraduationCap} label="Educational" />
-        <SidebarLink to="/spiritual" icon={UserCircle} label="Spiritual" />
-        <SidebarLink to="/personal" icon={Compass} label="Personal Growth" />
+        {enabledModules.professional && (
+          <SidebarLink to="/professional" icon={Briefcase} label="Professional" />
+        )}
+        {enabledModules.health && (
+          <SidebarLink to="/health" icon={Heart} label="Health & Fitness" />
+        )}
+        {enabledModules.financial && (
+          <SidebarLink to="/financial" icon={DollarSign} label="Financial" />
+        )}
+        {enabledModules.educational && (
+          <SidebarLink to="/educational" icon={GraduationCap} label="Educational" />
+        )}
+        {enabledModules.spiritual && (
+          <SidebarLink to="/spiritual" icon={UserCircle} label="Spiritual" />
+        )}
+        {enabledModules.personal && (
+          <SidebarLink to="/personal" icon={Compass} label="Personal Growth" />
+        )}
       </div>
 
       <div className="p-2 border-t border-border">

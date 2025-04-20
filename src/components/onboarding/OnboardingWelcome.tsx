@@ -2,14 +2,32 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { ModuleSelection } from "@/components/shared/ModuleSelection";
+import { LifeModule } from "@/types/modules";
+import { OnboardingData } from "./OnboardingLayout";
 
 interface OnboardingWelcomeProps {
-  data: any;
-  updateData: (data: any) => void;
+  data: OnboardingData;
+  updateData: (data: Partial<OnboardingData>) => void;
   onComplete: () => void;
 }
 
-export const OnboardingWelcome: React.FC<OnboardingWelcomeProps> = ({}) => {
+export const OnboardingWelcome: React.FC<OnboardingWelcomeProps> = ({
+  data,
+  updateData,
+}) => {
+  const handleModuleChange = (modules: LifeModule[]) => {
+    // Create modules object with enabled state
+    const modulesData = Object.fromEntries(
+      modules.map(moduleId => [
+        moduleId, 
+        { enabled: true, onboarded: false }
+      ])
+    );
+    
+    updateData({ enabledModules: modulesData });
+  };
+
   return (
     <div className="text-center max-w-2xl mx-auto py-10">
       <div className="w-20 h-20 bg-hazel-200 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -26,28 +44,20 @@ export const OnboardingWelcome: React.FC<OnboardingWelcomeProps> = ({}) => {
       
       <div className="space-y-6 mb-10">
         <p className="text-lg">
-          We'll help you build your personal life operating system that focuses on six key dimensions:
+          We'll help you build your personal life operating system. Choose which life dimensions you want to focus on:
         </p>
         
-        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-          <div className="bg-lavender-50 p-3 rounded-lg text-left">
-            <span className="font-medium">Professional</span>
-          </div>
-          <div className="bg-hazel-100 p-3 rounded-lg text-left">
-            <span className="font-medium">Health & Fitness</span>
-          </div>
-          <div className="bg-lavender-50 p-3 rounded-lg text-left">
-            <span className="font-medium">Financial</span>
-          </div>
-          <div className="bg-hazel-100 p-3 rounded-lg text-left">
-            <span className="font-medium">Educational</span>
-          </div>
-          <div className="bg-lavender-50 p-3 rounded-lg text-left">
-            <span className="font-medium">Spiritual & Emotional</span>
-          </div>
-          <div className="bg-hazel-100 p-3 rounded-lg text-left">
-            <span className="font-medium">Life Progression</span>
-          </div>
+        <div className="mt-6">
+          <ModuleSelection 
+            selectedModules={Object.keys(data.enabledModules || {}) as LifeModule[]}
+            onChange={handleModuleChange}
+          />
+        </div>
+        
+        <div className="bg-lavender-50 p-4 rounded-lg text-left mt-6">
+          <p className="text-sm text-muted-foreground">
+            <strong>Note:</strong> You can always enable or disable modules later in settings. Disabled modules will preserve your data.
+          </p>
         </div>
       </div>
       

@@ -12,6 +12,7 @@ import Habits from "./pages/Habits";
 import Journal from "./pages/Journal";
 import Vision from "./pages/Vision";
 import Resources from "./pages/Resources";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 
@@ -60,6 +61,7 @@ const App = () => {
                   <Route path="journal" element={<Journal />} />
                   <Route path="vision" element={<Vision />} />
                   <Route path="resources" element={<Resources />} />
+                  <Route path="settings" element={<Settings />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </>
