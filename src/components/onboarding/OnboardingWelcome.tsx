@@ -15,6 +15,7 @@ interface OnboardingWelcomeProps {
 export const OnboardingWelcome: React.FC<OnboardingWelcomeProps> = ({
   data,
   updateData,
+  onComplete
 }) => {
   const handleModuleChange = (modules: LifeModule[]) => {
     // Create modules object with enabled state

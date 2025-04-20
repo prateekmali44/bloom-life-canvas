@@ -16,6 +16,14 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 
+// Import module pages
+import Professional from "./pages/modules/Professional";
+import Health from "./pages/modules/Health";
+import Financial from "./pages/modules/Financial";
+import Educational from "./pages/modules/Educational";
+import Spiritual from "./pages/modules/Spiritual";
+import Personal from "./pages/modules/Personal";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -62,6 +70,14 @@ const App = () => {
                   <Route path="vision" element={<Vision />} />
                   <Route path="resources" element={<Resources />} />
                   <Route path="settings" element={<Settings />} />
+                  
+                  {/* Module routes */}
+                  <Route path="professional" element={<Professional />} />
+                  <Route path="health" element={<Health />} />
+                  <Route path="financial" element={<Financial />} />
+                  <Route path="educational" element={<Educational />} />
+                  <Route path="spiritual" element={<Spiritual />} />
+                  <Route path="personal" element={<Personal />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </>

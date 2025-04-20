@@ -1,22 +1,24 @@
 
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
+import plugin from "tailwindcss/plugin"
 
 export default {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        '2xl': '1400px'
-      }
+        "2xl": "1400px",
+      },
     },
     extend: {
       colors: {
@@ -53,102 +55,97 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Hazel color palette
         hazel: {
-          DEFAULT: "#FFDEE2",  // Soft Hazel Pink
-          50: "#FFF0F3",
-          100: "#FFE4E9",
-          200: "#FFDEE2",
-          300: "#FFC1CC",
-          400: "#FFA3B1",
-          500: "#FF8696",
-          600: "#FF697B",
-          700: "#FF4D60",
-          800: "#FF3345",
-          900: "#FF172A"
+          50: "#FFF5FA",
+          100: "#FFEAF4",
+          200: "#FFD5E9",
+          300: "#FFB0D5",
+          400: "#FF8AC2",
+          500: "#FF6AAF",
+          600: "#FF338E",
+          700: "#FF006D",
+          800: "#D10057",
+          900: "#A30044",
         },
+        // Lavender color palette
         lavender: {
-          DEFAULT: "#D6BCFA",  // Light Lavender
-          50: "#F5E6FF",
-          100: "#E6CCFF",
-          200: "#D6BCFA",
-          300: "#C69EF5",
-          400: "#B780F0",
-          500: "#A862EB",
-          600: "#9B47E5",
-          700: "#8D2BDE",
-          800: "#7F10D7",
-          900: "#6A00C0"
-        },
-        background: {
-          DEFAULT: "#FFDEE2",  // Soft Hazel Pink as default background
-          light: "#FFF0F3",   // Lighter variation
-          dark: "#FF8696"     // Darker variation
+          50: "#F6F4FF",
+          100: "#EDE9FF",
+          200: "#D8D1FF",
+          300: "#C2B5FF",
+          400: "#AB98FF",
+          500: "#957AFF",
+          600: "#7E5DFF",
+          700: "#683FFF",
+          800: "#5122FF",
+          900: "#3A00FF",
         }
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
-      },
-      keyframes: {
-        'accordion-down': {
-          from: {
-            height: '0'
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)'
-          }
-        },
-        'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)'
-          },
-          to: {
-            height: '0'
-          }
-        },
-        'fade-in': {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(10px)'
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)'
-          }
-        },
-        'scale-in': {
-          '0%': {
-            opacity: '0',
-            transform: 'scale(0.95)'
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'scale(1)'
-          }
-        },
-        'color-shift': {
-          '0%, 100%': { 
-            backgroundColor: 'hsl(330, 100%, 87%)', // Hazel Pink
-            color: 'hsl(270, 50%, 40%)' // Purple
-          },
-          '50%': { 
-            backgroundColor: 'hsl(270, 50%, 85%)', // Lavender
-            color: 'hsl(330, 100%, 50%)' // Hazel Pink
-          }
-        }
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in': 'fade-in 0.5s ease-out',
-        'scale-in': 'scale-in 0.3s ease-out',
-        'color-shift': 'color-shift 10s ease infinite'
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-      }
-    }
+        sans: ["Inter", ...fontFamily.sans],
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0", opacity: "0" },
+          to: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+          to: { height: "0", opacity: "0" },
+        },
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)"
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)"
+          }
+        },
+        "fade-out": {
+          "0%": {
+            opacity: "1",
+            transform: "translateY(0)"
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translateY(10px)"
+          }
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".custom-scrollbar::-webkit-scrollbar": {
+          width: "6px",
+          height: "6px",
+        },
+        ".custom-scrollbar::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        ".custom-scrollbar::-webkit-scrollbar-thumb": {
+          background: "hsl(var(--primary) / 0.3)",
+          borderRadius: "9999px",
+        },
+        ".custom-scrollbar::-webkit-scrollbar-thumb:hover": {
+          background: "hsl(var(--primary) / 0.5)",
+        },
+      });
+    }),
+  ],
+} satisfies Config

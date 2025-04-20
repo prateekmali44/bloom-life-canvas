@@ -17,7 +17,7 @@ import {
   UserCircle 
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { LifeModule } from "@/types/modules";
+import { LifeModule, ModulesData } from "@/types/modules";
 
 interface SidebarLinkProps {
   to: string;
@@ -46,14 +46,8 @@ const SidebarLink = ({ to, icon: Icon, label }: SidebarLinkProps) => {
 };
 
 export const Sidebar = () => {
-  const [enabledModules, setEnabledModules] = useState<Record<LifeModule, boolean>>({
-    professional: true,
-    health: false,
-    financial: false,
-    educational: false,
-    spiritual: false,
-    personal: false
-  });
+  const [enabledModules, setEnabledModules] = useState<Record<string, boolean>>({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Load user data to check enabled modules
@@ -61,25 +55,17 @@ export const Sidebar = () => {
     if (userData) {
       const parsedData = JSON.parse(userData);
       if (parsedData.enabledModules) {
-        const modules: Record<LifeModule, boolean> = {
-          professional: false,
-          health: false,
-          financial: false,
-          educational: false,
-          spiritual: false,
-          personal: false
-        };
+        const modulesState: Record<string, boolean> = {};
         
         // Update modules based on user settings
         Object.entries(parsedData.enabledModules).forEach(([key, value]) => {
-          if (key in modules && (value as any).enabled) {
-            modules[key as LifeModule] = true;
-          }
+          modulesState[key] = (value as any).enabled;
         });
         
-        setEnabledModules(modules);
+        setEnabledModules(modulesState);
       }
     }
+    setIsLoading(false);
   }, []);
 
   return (
@@ -113,7 +99,7 @@ export const Sidebar = () => {
           <SidebarLink to="/financial" icon={DollarSign} label="Financial" />
         )}
         {enabledModules.educational && (
-          <SidebarLink to="/educational" icon={GraduationCap} label="Educational" />
+          <SidebarLink to="/educational" icon={GraduationCap} label="Learning" />
         )}
         {enabledModules.spiritual && (
           <SidebarLink to="/spiritual" icon={UserCircle} label="Spiritual" />
