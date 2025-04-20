@@ -1,120 +1,87 @@
 
-// Life area identifiers
-export type LifeAreaKey = 
-  | "professional" 
-  | "health" 
-  | "financial" 
-  | "educational" 
-  | "spiritual" 
-  | "personal";
+import { LifeArea, LifeAreaKey } from "./modules";
 
-// Life area metadata
-export interface LifeArea {
-  key: LifeAreaKey;
-  name: string;
-  description: string;
-  color: string;
-  icon: string;
-}
-
-// Dashboard KPI card data
-export interface KpiData {
+export interface KPI {
+  id: string;
+  title: string;
+  value: number;
+  target: number;
+  unit: string;
+  change: number;
+  timeframe: string;
   areaKey: LifeAreaKey;
-  score: number;
-  trend: "up" | "down" | "neutral";
-  trendValue: number;
-  pendingGoals: number;
-  completedGoals: number;
-  activeHabits: number;
 }
 
-// Goal data structure
 export interface Goal {
   id: string;
   title: string;
   description: string;
-  areaKey: LifeAreaKey;
-  createdAt: string;
-  deadline?: string;
-  completedAt?: string;
+  priority: 'high' | 'medium' | 'low';
+  status: 'not_started' | 'in_progress' | 'completed';
   progress: number;
-  status: "not_started" | "in_progress" | "completed";
-  priority: "low" | "medium" | "high";
-  subTasks: SubTask[];
+  areaKey: LifeAreaKey;
+  deadline?: string;
+  createdAt: string;
+  subTasks: {
+    id: string;
+    title: string;
+    completed: boolean;
+  }[];
 }
 
-// Subtask for goals
-export interface SubTask {
-  id: string;
-  goalId: string;
-  title: string;
-  completed: boolean;
-}
-
-// Habit tracking
 export interface Habit {
   id: string;
   title: string;
   description: string;
-  areaKey: LifeAreaKey;
-  frequency: "daily" | "weekly" | "monthly";
+  frequency: 'daily' | 'weekly' | 'monthly';
   timeOfDay?: string;
   daysOfWeek?: number[];
   streak: number;
-  createdAt: string;
-  logs: HabitLog[];
+  areaKey: LifeAreaKey;
+  startDate: string;
+  status: 'active' | 'paused' | 'completed';
+  history: {
+    date: string;
+    completed: boolean;
+    notes?: string;
+  }[];
 }
 
-// Habit completion log
-export interface HabitLog {
-  id: string;
-  habitId: string;
-  date: string;
-  completed: boolean;
-  note?: string;
-}
-
-// Journal entry
 export interface JournalEntry {
   id: string;
   title: string;
   content: string;
-  mood: Mood;
   areaKeys: LifeAreaKey[];
   createdAt: string;
-  updatedAt: string;
+  mood: {
+    primary: string;
+    secondary?: string;
+    note?: string;
+  };
+  tags?: string[];
 }
 
-// Emotion/mood data
-export interface Mood {
-  primary: string;
-  energy: number;
-  pleasantness: number;
-  notes?: string;
+export interface VisionItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  areaKey: LifeAreaKey;
+  createdAt: string;
+  timeframe: 'annual' | 'lifetime';
 }
 
-// Resource item
 export interface Resource {
   id: string;
   title: string;
   description: string;
   url?: string;
-  type: "article" | "video" | "audio" | "book" | "course" | "other";
+  type: 'article' | 'video' | 'audio' | 'book' | 'course';
   areaKeys: LifeAreaKey[];
-  createdAt: string;
+  completedAt?: string;
+  addedAt: string;
+  tags?: string[];
+  progress?: number;
 }
 
-// Vision board item
-export interface VisionItem {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl?: string;
-  areaKey?: LifeAreaKey;
-  createdAt: string;
-  timeframe: "annual" | "lifetime";
-  deadline?: string;
-  progress?: number;
-  why?: string;
-  values?: string[];
-}
+export interface { LifeArea, LifeAreaKey };
