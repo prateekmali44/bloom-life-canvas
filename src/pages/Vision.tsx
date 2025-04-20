@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { mockVisionItems, lifeAreas } from "@/services/mockData";
-import { LifeAreaKey } from "@/types";
+import { LifeAreaKey, VisionItem as BaseVisionItem } from "@/types";
 import { 
   Calendar, 
   Plus, 
@@ -15,7 +14,8 @@ import {
   PlusCircle,
   Layers,
   ArrowRight,
-  Heart
+  Heart,
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,14 +35,10 @@ import { Progress } from "@/components/ui/progress";
 type VisionTimeframe = "annual" | "lifetime";
 type VisionType = "board" | "mission";
 
-interface VisionItem {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  areaKey?: LifeAreaKey;
-  deadline?: string;
+// Extending the base VisionItem interface to include the required timeframe field
+interface VisionItem extends BaseVisionItem {
   timeframe: VisionTimeframe;
+  deadline?: string;
   progress?: number;
   why?: string;
   values?: string[];
@@ -60,7 +56,7 @@ const lifePillars = [
 
 // Extended vision items
 const extendedVisionItems: VisionItem[] = [
-  ...mockVisionItems,
+  ...mockVisionItems.map(item => ({...item, timeframe: "annual" as VisionTimeframe})),
   {
     id: "lifetime-1",
     title: "Build a Dream Home",
@@ -69,7 +65,8 @@ const extendedVisionItems: VisionItem[] = [
     areaKey: "professional",
     timeframe: "lifetime",
     why: "To create a sanctuary that represents my values and gives me peace",
-    values: ["Security", "Creativity", "Sustainability"]
+    values: ["Security", "Creativity", "Sustainability"],
+    createdAt: new Date().toISOString()
   },
   {
     id: "lifetime-2",
@@ -79,7 +76,8 @@ const extendedVisionItems: VisionItem[] = [
     areaKey: "spiritual",
     timeframe: "lifetime",
     why: "To cultivate inner peace and clarity that will benefit all areas of my life",
-    values: ["Peace", "Growth", "Mindfulness"]
+    values: ["Peace", "Growth", "Mindfulness"],
+    createdAt: new Date().toISOString()
   },
   {
     id: "annual-1",
@@ -91,7 +89,8 @@ const extendedVisionItems: VisionItem[] = [
     deadline: "2024-12-31",
     progress: 8,
     why: "To expand my mind and grow intellectually",
-    values: ["Learning", "Curiosity"]
+    values: ["Learning", "Curiosity"],
+    createdAt: new Date().toISOString()
   },
   {
     id: "annual-2",
@@ -103,7 +102,8 @@ const extendedVisionItems: VisionItem[] = [
     deadline: "2024-10-15",
     progress: 65,
     why: "To push my physical limits and prove to myself I can do hard things",
-    values: ["Discipline", "Health", "Persistence"]
+    values: ["Discipline", "Health", "Persistence"],
+    createdAt: new Date().toISOString()
   }
 ];
 
@@ -534,7 +534,7 @@ const VisionPage = () => {
                             <>
                               <div className="flex items-start gap-2">
                                 <div className="p-1 rounded-full bg-green-100 text-green-600 mt-0.5">
-                                  <CheckCircle2 className="h-3 w-3" />
+                                  <CheckCircle className="h-3 w-3" />
                                 </div>
                                 <p className="text-sm">Complete website redesign</p>
                               </div>
@@ -769,292 +769,4 @@ const VisionPage = () => {
                     <Card key={pillar.id} className="hover:shadow-md transition-shadow">
                       <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
                         <div>
-                          <CardTitle className="text-lg">{pillar.name}</CardTitle>
-                        </div>
-                        <div 
-                          className="w-10 h-10 rounded-full flex items-center justify-center"
-                          style={{ backgroundColor: `${pillar.color}20`, color: pillar.color }}
-                        >
-                          <pillar.icon className="h-5 w-5" />
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-muted-foreground mb-4">
-                          {pillar.id === "health" && "Nurture physical vitality, mental clarity, and emotional balance"}
-                          {pillar.id === "relationships" && "Cultivate deep connections with family, friends, and community"}
-                          {pillar.id === "career" && "Create work that is meaningful, impactful, and aligns with values"}
-                          {pillar.id === "finance" && "Build wealth that provides freedom and supports my ideal lifestyle"}
-                          {pillar.id === "spirituality" && "Develop inner wisdom, peace, and connection to something greater"}
-                          {pillar.id === "legacy" && "Leave a positive mark on the world that outlasts my lifetime"}
-                        </p>
-                        <Button variant="outline" size="sm" className="w-full">
-                          <ArrowRight className="h-3 w-3 mr-1" /> Define Vision
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <h2 className="text-xl font-bold mb-4">10-Year Path</h2>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="relative">
-                      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-lavender-200"></div>
-                      
-                      <div className="space-y-8">
-                        <div className="relative pl-12">
-                          <div className="absolute left-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-medium">
-                            1
-                          </div>
-                          <h3 className="font-medium text-lg">Build Foundation (1-3 Years)</h3>
-                          <p className="text-muted-foreground mt-1 mb-3">
-                            Develop key skills, establish healthy routines, and set up financial systems
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            <Badge className="bg-lavender-100 text-primary">Master coding</Badge>
-                            <Badge className="bg-lavender-100 text-primary">Build emergency fund</Badge>
-                            <Badge className="bg-lavender-100 text-primary">30 days meditation streak</Badge>
-                          </div>
-                        </div>
-                        
-                        <div className="relative pl-12">
-                          <div className="absolute left-0 w-8 h-8 rounded-full bg-lavender-300 flex items-center justify-center text-white font-medium">
-                            2
-                          </div>
-                          <h3 className="font-medium text-lg">Grow Impact (4-6 Years)</h3>
-                          <p className="text-muted-foreground mt-1 mb-3">
-                            Expand influence, build business, deepen relationships
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            <Badge className="bg-lavender-100 text-primary">Launch business</Badge>
-                            <Badge className="bg-lavender-100 text-primary">Buy first property</Badge>
-                          </div>
-                        </div>
-                        
-                        <div className="relative pl-12">
-                          <div className="absolute left-0 w-8 h-8 rounded-full bg-lavender-200 flex items-center justify-center text-white font-medium">
-                            3
-                          </div>
-                          <h3 className="font-medium text-lg">Legacy Phase (7-10 Years)</h3>
-                          <p className="text-muted-foreground mt-1 mb-3">
-                            Create systems that outlast direct involvement, focus on giving back
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            <Badge className="bg-lavender-100 text-primary">Mentor others</Badge>
-                            <Badge className="bg-lavender-100 text-primary">Create passive income</Badge>
-                            <Badge className="bg-lavender-100 text-primary">Start foundation</Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" className="w-full">Refine 10-Year Path</Button>
-                  </CardFooter>
-                </Card>
-              </div>
-              
-              <div>
-                <h2 className="text-xl font-bold mb-4">Dream List</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredVisionItems.map((item) => {
-                    const area = item.areaKey ? lifeAreas[item.areaKey as LifeAreaKey] : null;
-                    
-                    return (
-                      <div 
-                        key={item.id} 
-                        className="group bg-white border border-border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                      >
-                        <div className="relative h-48 overflow-hidden">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                          {area && (
-                            <Badge
-                              style={{ backgroundColor: area.color }}
-                              className="absolute top-3 right-3 text-white"
-                            >
-                              {area.name}
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="p-4">
-                          <h3 className="font-medium text-lg text-gray-900 mb-1">{item.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-3">{item.description}</p>
-                          
-                          {item.why && (
-                            <div className="bg-hazel-50 border border-hazel-100 rounded-md p-3 mb-3">
-                              <p className="text-sm font-medium mb-1">My Why:</p>
-                              <p className="text-sm italic text-muted-foreground">{item.why}</p>
-                            </div>
-                          )}
-                          
-                          {item.values && (
-                            <div className="flex flex-wrap gap-1 mb-3">
-                              {item.values.map(value => (
-                                <Badge key={value} variant="outline" className="text-xs">
-                                  {value}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-                          
-                          <div className="flex items-center justify-end text-sm">
-                            <Button variant="ghost" size="sm">View Details</Button>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <div className="border-2 border-dashed border-border rounded-xl flex items-center justify-center p-8 hover:bg-muted/50 transition-colors cursor-pointer h-64">
-                        <div className="text-center">
-                          <div className="w-16 h-16 rounded-full bg-lavender-100 flex items-center justify-center mx-auto mb-4">
-                            <PlusCircle className="h-8 w-8 text-primary" />
-                          </div>
-                          <h3 className="font-medium text-lg text-primary mb-1">Add Lifetime Dream</h3>
-                          <p className="text-muted-foreground text-sm">
-                            Create a new vision for your lifetime journey
-                          </p>
-                        </div>
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[525px]">
-                      {/* Dialog content would be the same as above */}
-                      <DialogHeader>
-                        <DialogTitle>Add New Vision Item</DialogTitle>
-                        <DialogDescription>
-                          Create a new vision item with clear intent, purpose, and deadline.
-                        </DialogDescription>
-                      </DialogHeader>
-                      {/* ...form fields would go here... */}
-                      <DialogFooter>
-                        <Button type="submit" onClick={() => handleAddVisionItem({})}>
-                          Add to Vision Board
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </div>
-              
-              <div>
-                <h2 className="text-xl font-bold mb-4">Guiding Values</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4">
-                  {[
-                    { name: "Growth", icon: Wand, color: "#8b5cf6" }, 
-                    { name: "Freedom", icon: Compass, color: "#3b82f6" },
-                    { name: "Connection", icon: Heart, color: "#ec4899" },
-                    { name: "Creativity", icon: Star, color: "#f59e0b" },
-                    { name: "Discipline", icon: CalendarCheck, color: "#10b981" },
-                    { name: "Authenticity", icon: Compass, color: "#6366f1" }
-                  ].map((value, i) => (
-                    <Card key={i} className="text-center hover:shadow-md transition-shadow">
-                      <CardContent className="pt-6">
-                        <div 
-                          className="w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3"
-                          style={{ backgroundColor: `${value.color}20`, color: value.color }}
-                        >
-                          <value.icon className="h-6 w-6" />
-                        </div>
-                        <h3 className="font-medium">{value.name}</h3>
-                      </CardContent>
-                    </Card>
-                  ))}
-                  
-                  <Card className="text-center border-2 border-dashed border-muted hover:border-primary/50 transition-colors cursor-pointer">
-                    <CardContent className="pt-6">
-                      <div className="w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3 bg-muted">
-                        <PlusCircle className="h-6 w-6 text-muted-foreground" />
-                      </div>
-                      <h3 className="font-medium text-muted-foreground">Add Value</h3>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-              
-              <Card className="mt-8">
-                <CardHeader>
-                  <CardTitle>Archive of Past Visions</CardTitle>
-                  <CardDescription>Reflect on how your vision has evolved over time</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      {[2023, 2022, 2021, 2020].map(year => (
-                        <Card key={year} className="bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer">
-                          <CardContent className="p-4 text-center">
-                            <h3 className="text-lg font-medium">{year}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {year === 2023 && "Year of Foundations"}
-                              {year === 2022 && "Year of Renewal"}
-                              {year === 2021 && "Year of Resilience"}
-                              {year === 2020 && "Year of Adaptation"}
-                            </p>
-                            <Button variant="ghost" size="sm" className="mt-2">
-                              View Archive
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-        </TabsContent>
-        
-        <TabsContent value="mission" className="mt-0">
-          <div className="bg-white border border-border rounded-xl shadow-sm p-6 md:p-8">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold mb-1">My Mission Statement</h2>
-              <p className="text-muted-foreground">
-                Define your purpose and the principles you want to live by
-              </p>
-            </div>
-            
-            <div className="prose max-w-none">
-              <p className="text-lg">
-                To live each day with intention and purpose, continually growing in all dimensions of life. 
-                I strive to maintain balance between professional achievement and personal well-being, 
-                while making a positive impact on the lives of others.
-              </p>
-              
-              <h3 className="mt-8 mb-4">Core Values</h3>
-              
-              <ul className="space-y-2">
-                <li><strong>Integrity:</strong> Being honest and true to myself and others in all that I do</li>
-                <li><strong>Growth:</strong> Embracing challenges as opportunities to learn and develop</li>
-                <li><strong>Balance:</strong> Nurturing all areas of my life without sacrificing one for another</li>
-                <li><strong>Connection:</strong> Building meaningful relationships and fostering community</li>
-                <li><strong>Contribution:</strong> Adding value to the world through my unique skills and talents</li>
-              </ul>
-              
-              <div className="bg-muted p-5 rounded-lg mt-8">
-                <h3 className="mt-0 mb-2">One Year Vision</h3>
-                <p>
-                  By this time next year, I will have completed my professional certification, 
-                  established a consistent exercise routine, and developed deeper connections with my loved ones.
-                  I will have also built my emergency fund and started a new learning project that expands my skills.
-                </p>
-              </div>
-            </div>
-            
-            <div className="mt-6 flex justify-end">
-              <Button>Edit Mission Statement</Button>
-            </div>
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
-  );
-};
-
-export default VisionPage;
+                          <CardTitle className="text-lg">{pillar.

@@ -108,8 +108,13 @@ export interface Resource {
 export interface VisionItem {
   id: string;
   title: string;
-  description?: string;
+  description: string;
   imageUrl?: string;
   areaKey?: LifeAreaKey;
   createdAt: string;
+  timeframe: "annual" | "lifetime";
+  deadline?: string;
+  progress?: number;
+  why?: string;
+  values?: string[];
 }
