@@ -1,4 +1,3 @@
-
 import { 
   LifeArea, 
   LifeAreaKey, 
@@ -352,6 +351,7 @@ export const mockVisionItems: VisionItem[] = [
     imageUrl: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
     areaKey: "personal",
     createdAt: "2025-02-10T11:20:00Z",
+    timeframe: "annual",
   },
   {
     id: "v2",
@@ -360,6 +360,7 @@ export const mockVisionItems: VisionItem[] = [
     imageUrl: "https://images.unsplash.com/photo-1530137073261-dc8a8081c798",
     areaKey: "health",
     createdAt: "2025-01-05T16:45:00Z",
+    timeframe: "annual",
   },
   {
     id: "v3",
@@ -368,6 +369,7 @@ export const mockVisionItems: VisionItem[] = [
     imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
     areaKey: "professional",
     createdAt: "2025-03-20T14:10:00Z",
+    timeframe: "lifetime",
   },
   {
     id: "v4",
@@ -376,5 +378,6 @@ export const mockVisionItems: VisionItem[] = [
     imageUrl: "https://images.unsplash.com/photo-1579621970795-87facc2f976d",
     areaKey: "financial",
     createdAt: "2025-01-15T09:30:00Z",
+    timeframe: "lifetime",
   },
 ];

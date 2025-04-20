@@ -6,11 +6,15 @@ import { Progress } from "@/components/ui/progress";
 import { BadgeDollarSign, BarChart3, TrendingUp } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 
-interface FinancialGoalsProps {
-  // Add props if needed
+export interface FinancialGoalsProps {
+  currency?: string;
+  reportingStyle?: string;
 }
 
-const FinancialGoals: FC<FinancialGoalsProps> = () => {
+const FinancialGoals: FC<FinancialGoalsProps> = ({ currency = "USD", reportingStyle = "summary" }) => {
+  // Set currency symbol based on currency prop
+  const currencySymbol = currency === "USD" ? "$" : "€";
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -32,7 +36,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Emergency Fund</h3>
-                  <p className="text-sm text-muted-foreground">Target: $10,000</p>
+                  <p className="text-sm text-muted-foreground">Target: {currencySymbol}10,000</p>
                 </div>
               </div>
               <Badge>High Priority</Badge>
@@ -45,7 +49,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
               <Progress value={65} className="h-2" />
             </div>
             <div className="mt-3 flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">$6,500 saved of $10,000</span>
+              <span className="text-muted-foreground">{currencySymbol}6,500 saved of {currencySymbol}10,000</span>
               <span className="text-muted-foreground">Due: Dec 2023</span>
             </div>
           </div>
@@ -58,7 +62,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Retirement Fund</h3>
-                  <p className="text-sm text-muted-foreground">Target: $100,000</p>
+                  <p className="text-sm text-muted-foreground">Target: {currencySymbol}100,000</p>
                 </div>
               </div>
               <Badge variant="outline">Medium Priority</Badge>
@@ -71,7 +75,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
               <Progress value={23} className="h-2" />
             </div>
             <div className="mt-3 flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">$23,000 saved of $100,000</span>
+              <span className="text-muted-foreground">{currencySymbol}23,000 saved of {currencySymbol}100,000</span>
               <span className="text-muted-foreground">Due: Dec 2030</span>
             </div>
           </div>
@@ -84,7 +88,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">New Car Fund</h3>
-                  <p className="text-sm text-muted-foreground">Target: $25,000</p>
+                  <p className="text-sm text-muted-foreground">Target: {currencySymbol}25,000</p>
                 </div>
               </div>
               <Badge variant="outline">Low Priority</Badge>
@@ -97,7 +101,7 @@ const FinancialGoals: FC<FinancialGoalsProps> = () => {
               <Progress value={12} className="h-2" />
             </div>
             <div className="mt-3 flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">$3,000 saved of $25,000</span>
+              <span className="text-muted-foreground">{currencySymbol}3,000 saved of {currencySymbol}25,000</span>
               <span className="text-muted-foreground">Due: Jun 2025</span>
             </div>
           </div>
