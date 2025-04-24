@@ -25,7 +25,7 @@ const goalsByArea = {
     { id: 'f2', title: 'Investment Portfolio', description: 'Diversify investments', progress: 20, deadline: 'Nov 2025', priority: 'medium' as const },
   ],
   educational: [
-    { id: 'e1', title: 'Master's Degree', description: 'Complete coursework', progress: 40, deadline: 'Jun 2026', priority: 'high' as const },
+    { id: 'e1', title: "Master's Degree", description: 'Complete coursework', progress: 40, deadline: 'Jun 2026', priority: 'high' as const },
     { id: 'e2', title: 'Read 24 Books', description: '2 books per month', progress: 33, deadline: 'Dec 2025', priority: 'low' as const },
   ],
   spiritual: [
