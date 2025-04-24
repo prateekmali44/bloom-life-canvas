@@ -84,4 +84,4 @@ export interface Resource {
   progress?: number;
 }
 
-export interface { LifeArea, LifeAreaKey };
+export type { LifeArea, LifeAreaKey };
