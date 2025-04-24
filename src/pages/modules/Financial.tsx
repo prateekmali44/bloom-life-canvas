@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BudgetOverview } from "@/components/modules/financial/BudgetOverview";
-import { ExpenseTracker } from "@/components/modules/financial/ExpenseTracker";
-import { FinancialGoals } from "@/components/modules/financial/FinancialGoals";
-import { FinancialInsights } from "@/components/modules/financial/FinancialInsights";
-import { InvestmentTracker } from "@/components/modules/financial/InvestmentTracker";
+import BudgetOverview from "@/components/modules/financial/BudgetOverview";
+import ExpenseTracker from "@/components/modules/financial/ExpenseTracker";
+import FinancialGoals from "@/components/modules/financial/FinancialGoals";
+import FinancialInsights from "@/components/modules/financial/FinancialInsights";
+import InvestmentTracker from "@/components/modules/financial/InvestmentTracker";
 import { 
   LayoutDashboard, 
   Target, 

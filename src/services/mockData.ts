@@ -126,9 +126,9 @@ export const mockGoals: Goal[] = [
     status: "in_progress",
     priority: "high",
     subTasks: [
-      { id: "st1", goalId: "g1", title: "Register for the exam", completed: true },
-      { id: "st2", goalId: "g1", title: "Complete online course", completed: false },
-      { id: "st3", goalId: "g1", title: "Take practice tests", completed: false },
+      { id: "st1", title: "Register for the exam", completed: true },
+      { id: "st2", title: "Complete online course", completed: false },
+      { id: "st3", title: "Take practice tests", completed: false },
     ],
   },
   {
@@ -142,9 +142,9 @@ export const mockGoals: Goal[] = [
     status: "in_progress",
     priority: "high",
     subTasks: [
-      { id: "st4", goalId: "g2", title: "Build up to 5K", completed: true },
-      { id: "st5", goalId: "g2", title: "Build up to 10K", completed: false },
-      { id: "st6", goalId: "g2", title: "Complete training plan", completed: false },
+      { id: "st4", title: "Build up to 5K", completed: true },
+      { id: "st5", title: "Build up to 10K", completed: false },
+      { id: "st6", title: "Complete training plan", completed: false },
     ],
   },
   {
@@ -158,9 +158,9 @@ export const mockGoals: Goal[] = [
     status: "in_progress",
     priority: "high",
     subTasks: [
-      { id: "st7", goalId: "g3", title: "Set up automatic transfers", completed: true },
-      { id: "st8", goalId: "g3", title: "Reach $5,000", completed: true },
-      { id: "st9", goalId: "g3", title: "Reach $10,000", completed: false },
+      { id: "st7", title: "Set up automatic transfers", completed: true },
+      { id: "st8", title: "Reach $5,000", completed: true },
+      { id: "st9", title: "Reach $10,000", completed: false },
     ],
   },
   {
@@ -174,9 +174,9 @@ export const mockGoals: Goal[] = [
     status: "in_progress",
     priority: "medium",
     subTasks: [
-      { id: "st10", goalId: "g4", title: "Learn 500 most common words", completed: true },
-      { id: "st11", goalId: "g4", title: "Complete beginner grammar", completed: false },
-      { id: "st12", goalId: "g4", title: "Practice with language partner", completed: false },
+      { id: "st10", title: "Learn 500 most common words", completed: true },
+      { id: "st11", title: "Complete beginner grammar", completed: false },
+      { id: "st12", title: "Practice with language partner", completed: false },
     ],
   },
   {
@@ -190,9 +190,9 @@ export const mockGoals: Goal[] = [
     status: "in_progress",
     priority: "medium",
     subTasks: [
-      { id: "st13", goalId: "g5", title: "Find guided meditations", completed: true },
-      { id: "st14", goalId: "g5", title: "Set up meditation space", completed: true },
-      { id: "st15", goalId: "g5", title: "Reach 30 day streak", completed: false },
+      { id: "st13", title: "Find guided meditations", completed: true },
+      { id: "st14", title: "Set up meditation space", completed: true },
+      { id: "st15", title: "Reach 30 day streak", completed: false },
     ],
   },
 ];
@@ -207,8 +207,9 @@ export const mockHabits: Habit[] = [
     frequency: "daily",
     timeOfDay: "08:00",
     streak: 12,
-    createdAt: "2025-03-01T08:00:00Z",
-    logs: [],
+    startDate: "2025-03-01T08:00:00Z",
+    status: "active",
+    history: []
   },
   {
     id: "h2",
@@ -218,8 +219,9 @@ export const mockHabits: Habit[] = [
     frequency: "daily",
     daysOfWeek: [1, 2, 3, 4, 5],
     streak: 8,
-    createdAt: "2025-02-15T17:30:00Z",
-    logs: [],
+    startDate: "2025-02-15T17:30:00Z",
+    status: "active",
+    history: []
   },
   {
     id: "h3",
@@ -229,8 +231,9 @@ export const mockHabits: Habit[] = [
     frequency: "weekly",
     daysOfWeek: [6],
     streak: 5,
-    createdAt: "2025-01-10T19:00:00Z",
-    logs: [],
+    startDate: "2025-01-10T19:00:00Z",
+    status: "active",
+    history: []
   },
   {
     id: "h4",
@@ -240,8 +243,9 @@ export const mockHabits: Habit[] = [
     frequency: "daily",
     timeOfDay: "19:00",
     streak: 15,
-    createdAt: "2025-03-01T19:00:00Z",
-    logs: [],
+    startDate: "2025-03-01T19:00:00Z",
+    status: "active",
+    history: []
   },
   {
     id: "h5",
@@ -251,8 +255,9 @@ export const mockHabits: Habit[] = [
     frequency: "daily",
     timeOfDay: "06:30",
     streak: 21,
-    createdAt: "2025-01-05T06:30:00Z",
-    logs: [],
+    startDate: "2025-01-05T06:30:00Z",
+    status: "active",
+    history: []
   },
 ];
 
@@ -264,13 +269,12 @@ export const mockJournalEntries: JournalEntry[] = [
     content: "Today I gave my quarterly presentation to the leadership team. It went better than expected, though I need to work on my timing as I rushed through some important slides...",
     mood: {
       primary: "Proud",
-      energy: 70,
-      pleasantness: 85,
-      notes: "Feeling accomplished but tired",
+      secondary: "Satisfied",
+      note: "Feeling accomplished but tired",
     },
     areaKeys: ["professional"],
     createdAt: "2025-04-16T18:30:00Z",
-    updatedAt: "2025-04-16T18:30:00Z",
+    tags: ["work", "presentation"]
   },
   {
     id: "j2",
@@ -278,13 +282,12 @@ export const mockJournalEntries: JournalEntry[] = [
     content: "Completed my longest run yet - 8 miles! I was worried about hitting a wall but actually felt stronger in the second half. My training is paying off...",
     mood: {
       primary: "Energized",
-      energy: 90,
-      pleasantness: 95,
-      notes: "Runner's high!",
+      secondary: "Proud",
+      note: "Runner's high!",
     },
     areaKeys: ["health"],
     createdAt: "2025-04-15T09:45:00Z",
-    updatedAt: "2025-04-15T09:45:00Z",
+    tags: ["running", "fitness"]
   },
   {
     id: "j3",
@@ -292,13 +295,12 @@ export const mockJournalEntries: JournalEntry[] = [
     content: "During meditation this morning, I had an insight about why I've been feeling anxious about the upcoming project deadline. I realized I'm putting unnecessary pressure on myself...",
     mood: {
       primary: "Peaceful",
-      energy: 60,
-      pleasantness: 80,
-      notes: "Feeling centered and calm",
+      secondary: "Reflective",
+      note: "Feeling centered and calm",
     },
     areaKeys: ["spiritual", "professional"],
     createdAt: "2025-04-14T07:15:00Z",
-    updatedAt: "2025-04-14T07:15:00Z",
+    tags: ["meditation", "mindfulness"]
   },
 ];
 
@@ -311,7 +313,8 @@ export const mockResources: Resource[] = [
     url: "https://example.com/leadership-communication",
     type: "article",
     areaKeys: ["professional"],
-    createdAt: "2025-03-10T14:20:00Z",
+    addedAt: "2025-03-10T14:20:00Z",
+    tags: ["leadership", "communication"]
   },
   {
     id: "r2",
@@ -320,7 +323,8 @@ export const mockResources: Resource[] = [
     url: "https://example.com/strength-program",
     type: "course",
     areaKeys: ["health"],
-    createdAt: "2025-02-20T10:15:00Z",
+    addedAt: "2025-02-20T10:15:00Z",
+    tags: ["fitness", "strength"]
   },
   {
     id: "r3",
@@ -329,7 +333,8 @@ export const mockResources: Resource[] = [
     url: "https://example.com/mindfulness-intro",
     type: "video",
     areaKeys: ["spiritual"],
-    createdAt: "2025-01-15T16:40:00Z",
+    addedAt: "2025-01-15T16:40:00Z",
+    tags: ["mindfulness", "meditation"]
   },
   {
     id: "r4",
@@ -338,7 +343,8 @@ export const mockResources: Resource[] = [
     url: "https://example.com/finance-basics",
     type: "book",
     areaKeys: ["financial"],
-    createdAt: "2025-03-05T09:30:00Z",
+    addedAt: "2025-03-05T09:30:00Z",
+    tags: ["finance", "budgeting"]
   },
 ];
 

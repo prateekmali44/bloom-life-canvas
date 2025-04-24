@@ -1,6 +1,16 @@
 
 import { LifeArea, LifeAreaKey } from "./modules";
 
+export interface KpiData {
+  areaKey: LifeAreaKey;
+  score: number;
+  trend: "up" | "down" | "neutral";
+  trendValue: number;
+  pendingGoals: number;
+  completedGoals: number;
+  activeHabits: number;
+}
+
 export interface KPI {
   id: string;
   title: string;

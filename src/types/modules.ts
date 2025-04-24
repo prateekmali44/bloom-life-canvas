@@ -1,4 +1,20 @@
 
+export type LifeAreaKey = 
+  | "professional" 
+  | "health" 
+  | "financial" 
+  | "educational" 
+  | "spiritual" 
+  | "personal";
+
+export interface LifeArea {
+  key: LifeAreaKey;
+  name: string;
+  description: string;
+  color: string;
+  icon: string;
+}
+
 export type LifeModule = 
   | "professional" 
   | "health" 
