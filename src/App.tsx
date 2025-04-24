@@ -15,7 +15,7 @@ import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
-import { initializeAppData } from "./lib/appDeployer";
+import { initializeAppData, verifyCapacitorConfig } from "./lib/appDeployer";
 
 // Import module pages
 import Professional from "./pages/modules/Professional";
@@ -33,6 +33,10 @@ const App = () => {
   useEffect(() => {
     // Initialize app data if needed
     initializeAppData();
+    
+    // Verify Capacitor configuration for debugging
+    const configInfo = verifyCapacitorConfig();
+    console.log("Capacitor config info:", configInfo);
     
     // Check if the user has completed onboarding
     const completed = localStorage.getItem("onboardingCompleted") === "true";

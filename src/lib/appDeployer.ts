@@ -13,6 +13,8 @@ import { toast } from "@/components/ui/use-toast";
 export const initializeAppData = () => {
   // Check if user data exists in local storage
   if (!localStorage.getItem("userData")) {
+    console.log("Initializing default user data...");
+    
     // Create default user data
     const defaultUserData = {
       onboardingCompleted: true, // Skip onboarding for testing
@@ -30,9 +32,11 @@ export const initializeAppData = () => {
     localStorage.setItem("userData", JSON.stringify(defaultUserData));
     localStorage.setItem("onboardingCompleted", "true");
     
+    console.log("User data initialized successfully");
     return true; // Initialization performed
   }
   
+  console.log("User data already exists, no initialization needed");
   return false; // No initialization needed
 };
 
@@ -47,7 +51,30 @@ export const setupDevEnvironment = () => {
       title: "Development environment initialized",
       description: "Default user data has been created for testing.",
     });
+    console.log("Development environment initialized successfully");
   }
   
   return initialized;
 };
+
+/**
+ * Helper function to verify Capacitor configuration
+ * Useful for debugging mobile deployment issues
+ */
+export const verifyCapacitorConfig = () => {
+  console.log("Verifying Capacitor configuration...");
+  
+  // Check if running in web or mobile context
+  const isMobileApp = document.URL.includes('capacitor://') || 
+                      document.URL.includes('localhost') ||
+                      document.URL.includes('ionic://');
+                      
+  console.log(`Running in ${isMobileApp ? 'mobile app' : 'web browser'} context`);
+  
+  return {
+    isMobileApp,
+    platform: isMobileApp ? 'mobile' : 'web',
+    userAgent: navigator.userAgent
+  };
+};
+
