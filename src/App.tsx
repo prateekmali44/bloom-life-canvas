@@ -15,6 +15,7 @@ import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
+import { initializeAppData } from "./lib/appDeployer";
 
 // Import module pages
 import Professional from "./pages/modules/Professional";
@@ -30,6 +31,9 @@ const App = () => {
   const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
   
   useEffect(() => {
+    // Initialize app data if needed
+    initializeAppData();
+    
     // Check if the user has completed onboarding
     const completed = localStorage.getItem("onboardingCompleted") === "true";
     setOnboardingCompleted(completed);

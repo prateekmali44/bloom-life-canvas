@@ -6,12 +6,20 @@ const config: CapacitorConfig = {
   appName: 'bloom-life-canvas',
   webDir: 'dist',
   server: {
-    url: 'https://02ce2bd6-2585-4b8b-8d59-0a5d38d12e3d.lovableproject.com?forceHideBadge=true',
+    androidScheme: 'https',
     cleartext: true
   },
   android: {
     buildOptions: {
       gradleArgs: ['-PcdvMinSdkVersion=22']
+    }
+  },
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 3000,
+      backgroundColor: "#FFFFFF",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_CROP"
     }
   }
 };

@@ -1,5 +1,5 @@
 
-import { LifeArea, LifeAreaKey } from "./modules";
+import { LifeModule, ModulesData, ModuleState } from "./modules";
 
 export interface KpiData {
   areaKey: LifeAreaKey;
@@ -94,4 +94,22 @@ export interface Resource {
   progress?: number;
 }
 
-export type { LifeArea, LifeAreaKey };
+// Re-export from modules.ts
+export type { ModuleState, ModulesData, LifeModule };
+
+// Re-export LifeArea and LifeAreaKey from types/modules.ts
+export type LifeAreaKey = 
+  | "professional" 
+  | "health" 
+  | "financial" 
+  | "educational" 
+  | "spiritual" 
+  | "personal";
+
+export interface LifeArea {
+  key: LifeAreaKey;
+  name: string;
+  description: string;
+  color: string;
+  icon: string;
+}
