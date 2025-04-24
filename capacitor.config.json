@@ -1,23 +1,46 @@
 
 {
   "appId": "com.bloom.life.canvas",
-  "appName": "bloom-life-canvas",
+  "appName": "Bloom Life Canvas",
   "webDir": "dist",
   "server": {
     "androidScheme": "https",
-    "cleartext": true
+    "cleartext": true,
+    "hostname": "app"
   },
   "android": {
     "buildOptions": {
-      "gradleArgs": ["-PcdvMinSdkVersion=22"]
-    }
+      "keystorePath": null,
+      "keystorePassword": null,
+      "keystoreAlias": null,
+      "keystoreAliasPassword": null,
+      "releaseType": null,
+      "signingType": null
+    },
+    "flavor": null,
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true,
+    "hideLogs": false,
+    "contentInset": "automatic",
+    "androidXEnabled": true,
+    "minSdkVersion": 22
   },
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 3000,
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
       "backgroundColor": "#FFFFFF",
       "androidSplashResourceName": "splash",
-      "androidScaleType": "CENTER_CROP"
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#488AFF",
+      "sound": "beep.wav"
     }
   }
 }

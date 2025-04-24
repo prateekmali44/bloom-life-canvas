@@ -5,6 +5,7 @@
  */
 
 import { toast } from "@/components/ui/use-toast";
+import { Capacitor } from '@capacitor/core';
 
 /**
  * Initialize the app with required local storage data
@@ -41,6 +42,54 @@ export const initializeAppData = () => {
 };
 
 /**
+ * Check if the app is running on a mobile device
+ * @returns {boolean} true if the app is running on a mobile device
+ */
+export const isMobileDevice = () => {
+  return Capacitor.isNativePlatform();
+};
+
+/**
+ * Get the platform information
+ * @returns {string} 'android', 'ios', or 'web'
+ */
+export const getPlatform = () => {
+  if (!Capacitor.isPluginAvailable('Device')) {
+    return 'web';
+  }
+  return Capacitor.getPlatform();
+};
+
+/**
+ * Apply mobile-specific styling to the app
+ * This is called on app initialization to adapt the UI for mobile
+ */
+export const applyMobileSpecificStyling = () => {
+  if (isMobileDevice()) {
+    const rootElement = document.documentElement;
+    
+    // Add a CSS class to the root element to allow mobile-specific styling
+    rootElement.classList.add('mobile-device');
+    
+    // Apply platform-specific class
+    const platform = getPlatform();
+    rootElement.classList.add(`platform-${platform}`);
+    
+    // Adjust viewport for mobile
+    const viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+      viewportMeta.setAttribute('content', 
+        'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no');
+    }
+    
+    console.log(`Applied mobile styling for ${platform} platform`);
+    return true;
+  }
+  
+  return false;
+};
+
+/**
  * Quick setup function for development and testing
  */
 export const setupDevEnvironment = () => {
@@ -65,16 +114,23 @@ export const verifyCapacitorConfig = () => {
   console.log("Verifying Capacitor configuration...");
   
   // Check if running in web or mobile context
-  const isMobileApp = document.URL.includes('capacitor://') || 
+  const isMobileApp = Capacitor.isNativePlatform() || 
+                      document.URL.includes('capacitor://') || 
                       document.URL.includes('localhost') ||
                       document.URL.includes('ionic://');
                       
   console.log(`Running in ${isMobileApp ? 'mobile app' : 'web browser'} context`);
   
-  return {
+  const deviceInfo = {
     isMobileApp,
-    platform: isMobileApp ? 'mobile' : 'web',
-    userAgent: navigator.userAgent
+    platform: isMobileApp ? getPlatform() : 'web',
+    userAgent: navigator.userAgent,
+    isNative: Capacitor.isNativePlatform(),
+    webViewVersion: Capacitor.getPlatform() === 'android' ? 
+      navigator.userAgent.match(/Chrome\/([0-9.]+)/)?.[1] : 
+      navigator.userAgent.match(/AppleWebKit\/([0-9.]+)/)?.[1]
   };
+  
+  console.log("Device info:", deviceInfo);
+  return deviceInfo;
 };
-

@@ -30,7 +30,7 @@ Upload the contents of the `dist` folder to any static hosting provider like:
 - Make sure you have installed:
   - For iOS: Xcode (macOS only)
   - For Android: Android Studio
-  - Node.js v14+ and npm
+  - Node.js v16+ and npm
 
 ### 1. Build the Web App First
 ```bash
@@ -89,11 +89,52 @@ This will open the project in Android Studio where you can build and run on emul
 
 If you encounter issues with mobile deployment:
 
-1. Ensure your web build is successful and the `dist` directory exists
-2. Run `npx cap sync` after any changes to the web code
-3. Check that all required Capacitor plugins are installed
-4. For Android, verify that the minimum SDK version is set correctly in your config
-5. For iOS, make sure you have a valid development team set in Xcode
+1. **Web Build Issues**: 
+   - Ensure your web build is successful and the `dist` directory exists
+   - Check console for any build errors
+
+2. **Sync Issues**:
+   - After any changes to the web code, always run `npm run build` followed by `npx cap sync`
+   - If changes aren't appearing, try cleaning the Capacitor cache with `npx cap clean android` or `npx cap clean ios`
+
+3. **Android-Specific Issues**:
+   - Verify that the minimum SDK version is set correctly in your config (22 or higher recommended)
+   - Make sure you have the latest Android SDK tools installed
+   - If you encounter WebView issues, update your device's Android System WebView app from the Play Store
+
+4. **iOS-Specific Issues**:
+   - Ensure you have a valid development team set in Xcode
+   - iOS requires a physical device to test certain features like notifications
+
+5. **App Not Working Correctly on Device**:
+   - Enable Chrome remote debugging for Android or Safari Web Inspector for iOS to view console logs
+   - Check that all required plugins are installed and configured correctly
+   - Verify network connectivity if the app requires internet access
+
+6. **Capacitor Plugin Issues**:
+   - If using native plugins (like camera), ensure they are properly installed and configured
+   - Run `npx cap doctor` to check for common issues with your setup
+
+### Common Android Commands
+```bash
+# Build and run on Android
+npx cap run android
+
+# Live reload for development (requires capacitor-live-reload plugin)
+npx cap run android --livereload --external
+
+# Build a release APK
+cd android && ./gradlew assembleRelease
+```
+
+### Common iOS Commands
+```bash
+# Build and run on iOS
+npx cap run ios
+
+# Specify a device
+npx cap run ios --target="iPhone 14 Pro"
+```
 
 ## Accessing the Deployed App
 
@@ -104,13 +145,3 @@ If you encounter issues with mobile deployment:
 ### Mobile Version
 - Install from App Store or Google Play (once published)
 - During development, install directly from Xcode or Android Studio to your device
-
-## Troubleshooting
-
-If you encounter issues:
-1. Make sure all dependencies are installed (`npm install`)
-2. Verify the build was successful before syncing to mobile
-3. Check Capacitor logs for any errors
-4. For platform-specific issues, refer to the respective IDE's error messages
-5. Check the console logs for initialization messages from the app
-

@@ -15,7 +15,11 @@ import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
-import { initializeAppData, verifyCapacitorConfig } from "./lib/appDeployer";
+import { 
+  initializeAppData, 
+  verifyCapacitorConfig,
+  applyMobileSpecificStyling
+} from "./lib/appDeployer";
 
 // Import module pages
 import Professional from "./pages/modules/Professional";
@@ -29,25 +33,33 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
+  const [appInitialized, setAppInitialized] = useState(false);
   
   useEffect(() => {
+    // Initialize app for mobile if applicable
+    applyMobileSpecificStyling();
+    
     // Initialize app data if needed
     initializeAppData();
     
     // Verify Capacitor configuration for debugging
     const configInfo = verifyCapacitorConfig();
-    console.log("Capacitor config info:", configInfo);
+    console.log("App environment info:", configInfo);
     
     // Check if the user has completed onboarding
     const completed = localStorage.getItem("onboardingCompleted") === "true";
     setOnboardingCompleted(completed);
+    setAppInitialized(true);
   }, []);
   
   // Show loading state until we've checked onboarding status
-  if (onboardingCompleted === null) {
+  if (onboardingCompleted === null || !appInitialized) {
     return (
       <div className="h-screen flex items-center justify-center bg-hazel-50">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm text-muted-foreground">Loading your life canvas...</p>
+        </div>
       </div>
     );
   }
