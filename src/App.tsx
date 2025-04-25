@@ -29,6 +29,9 @@ import Educational from "./pages/modules/Educational";
 import Spiritual from "./pages/modules/Spiritual";
 import Personal from "./pages/modules/Personal";
 
+// Import data manager
+import { dataStore } from "./lib/dataManager";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -42,6 +45,12 @@ const App = () => {
     // Initialize app data if needed
     initializeAppData();
     
+    // Initialize data store
+    dataStore.initializeDataStore();
+    
+    // Add sample data for development (comment out in production)
+    // dataStore.addSampleData();
+    
     // Verify Capacitor configuration for debugging
     const configInfo = verifyCapacitorConfig();
     console.log("App environment info:", configInfo);
@@ -50,6 +59,8 @@ const App = () => {
     const completed = localStorage.getItem("onboardingCompleted") === "true";
     setOnboardingCompleted(completed);
     setAppInitialized(true);
+    
+    console.log("App initialized, onboarding status:", completed);
   }, []);
   
   // Show loading state until we've checked onboarding status

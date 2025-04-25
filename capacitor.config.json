@@ -24,7 +24,9 @@
     "hideLogs": false,
     "contentInset": "automatic",
     "androidXEnabled": true,
-    "minSdkVersion": 22
+    "minSdkVersion": 22,
+    "initialFocus": true,
+    "useLegacyBridge": false
   },
   "plugins": {
     "SplashScreen": {
@@ -41,6 +43,18 @@
       "smallIcon": "ic_stat_icon_config_sample",
       "iconColor": "#488AFF",
       "sound": "beep.wav"
+    },
+    "App": {
+      "backgroundColor": "#FFFFFF"
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "CapacitorHttp": {
+      "enabled": true
+    },
+    "CapacitorCookies": {
+      "enabled": true
     }
   }
 }

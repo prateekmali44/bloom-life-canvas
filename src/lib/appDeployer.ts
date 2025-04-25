@@ -6,6 +6,7 @@
 
 import { toast } from "@/components/ui/use-toast";
 import { Capacitor } from '@capacitor/core';
+import { dataStore } from "./dataManager";
 
 /**
  * Initialize the app with required local storage data
@@ -19,11 +20,13 @@ export const initializeAppData = () => {
     // Create default user data
     const defaultUserData = {
       onboardingCompleted: true, // Skip onboarding for testing
+      name: "Demo User",
+      email: "demo@example.com",
       enabledModules: {
         professional: { enabled: true, onboarded: true },
-        health: { enabled: false, onboarded: false },
-        financial: { enabled: false, onboarded: false },
-        educational: { enabled: false, onboarded: false },
+        health: { enabled: true, onboarded: true },
+        financial: { enabled: true, onboarded: true },
+        educational: { enabled: true, onboarded: true },
         spiritual: { enabled: false, onboarded: false },
         personal: { enabled: false, onboarded: false },
       }
@@ -32,6 +35,10 @@ export const initializeAppData = () => {
     // Save to localStorage
     localStorage.setItem("userData", JSON.stringify(defaultUserData));
     localStorage.setItem("onboardingCompleted", "true");
+    
+    // Initialize data store and add sample data for quick testing
+    dataStore.initializeDataStore();
+    dataStore.addSampleData();
     
     console.log("User data initialized successfully");
     return true; // Initialization performed
@@ -82,6 +89,33 @@ export const applyMobileSpecificStyling = () => {
         'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no');
     }
     
+    // Add mobile-specific CSS
+    const style = document.createElement('style');
+    style.innerHTML = `
+      /* Mobile-specific styles */
+      .mobile-device {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Add some padding for iOS safe areas */
+      .platform-ios {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      
+      /* Adjust buttons to be more touch-friendly */
+      .mobile-device button {
+        min-height: 44px;
+      }
+      
+      /* Disable pull-to-refresh */
+      html, body {
+        overscroll-behavior-y: contain;
+      }
+    `;
+    document.head.appendChild(style);
+    
     console.log(`Applied mobile styling for ${platform} platform`);
     return true;
   }
@@ -128,9 +162,36 @@ export const verifyCapacitorConfig = () => {
     isNative: Capacitor.isNativePlatform(),
     webViewVersion: Capacitor.getPlatform() === 'android' ? 
       navigator.userAgent.match(/Chrome\/([0-9.]+)/)?.[1] : 
-      navigator.userAgent.match(/AppleWebKit\/([0-9.]+)/)?.[1]
+      navigator.userAgent.match(/AppleWebKit\/([0-9.]+)/)?.[1],
+    isCapacitorInitialized: Capacitor.isPluginAvailable('App'),
+    availablePlugins: {
+      App: Capacitor.isPluginAvailable('App'),
+      Device: Capacitor.isPluginAvailable('Device'),
+      SplashScreen: Capacitor.isPluginAvailable('SplashScreen'),
+      LocalNotifications: Capacitor.isPluginAvailable('LocalNotifications'),
+    }
   };
   
   console.log("Device info:", deviceInfo);
   return deviceInfo;
+};
+
+/**
+ * Check if the app needs to update local storage schema
+ * This is used when app versions change storage structure
+ */
+export const checkAndUpdateStorageSchema = () => {
+  const schemaVersion = localStorage.getItem('schemaVersion');
+  const currentVersion = "1.0";
+  
+  if (schemaVersion !== currentVersion) {
+    console.log(`Updating storage schema from ${schemaVersion || 'none'} to ${currentVersion}`);
+    
+    // Run any migration logic here
+    
+    localStorage.setItem('schemaVersion', currentVersion);
+    return true;
+  }
+  
+  return false;
 };
